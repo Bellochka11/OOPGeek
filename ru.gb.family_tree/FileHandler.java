@@ -24,9 +24,5 @@ public class FileHandler implements Writable {
         }
     }
 
-    @Override
-    public boolean save(Serializable serializable, String filePath) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
+    
 }

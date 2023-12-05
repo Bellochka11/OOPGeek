@@ -1,7 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree {
+public class FamilyTree implements Serializable, Irerable<Human>{
     private long humanId;
     private List<Human> humanList;
 
@@ -84,5 +86,15 @@ public class FamilyTree {
             sb.append("\n");
         }
         return sb.toString();
+    }
+    @Override
+    public Iterator<Human> iterator(){
+        return new HumanInerator(humanList);
+    }
+    public void sortByName(){
+        humanList.sort(new HumanComporatorByName());
+    }
+    public void sortByBirthDate(){
+        humanList.sort(new HumanComporatorByBirthDate);
     }
 }
