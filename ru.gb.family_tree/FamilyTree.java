@@ -3,17 +3,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree implements Serializable, Irerable<Human>{
-    private long humanId;
-    private List<Human> humanList;
+public class FamilyTree<E extends TreeNode<E>> implements Serializable, Irerable<E>{
+    private long countPeople;
+    private List<E> humanList;
 
     public FamilyTree(){
         this(new ArrayList<>());
     }
-    public FamilyTree(List<Human> humanList){
+    public FamilyTree(List<E> humanList){
         this.humanList = humanList;
     }
-    public boolean add(Human human){
+    public boolean add(E human){
         if (human == null) {
             return false;
         }
@@ -26,22 +26,22 @@ public class FamilyTree implements Serializable, Irerable<Human>{
         }
             return false; 
     }
-    private void addToParents(Human human){
+    private void addToParents(E human){
         for (Human parent : human.getParents()) {
             parent.addChild(human);
         }
     }
-    private void addToChildren(Human human){
+    private void addToChildren(E human){
         for (Human child : human.getChildren()) {
             child.addParent(human);
         }
     }
-    public List<Human> getSiblings(int id){
+    public List<E> getSiblings(int id){
         Human human = getById(id);
         if (human == null) {
             return null;
         }
-        List<Human> res = new ArrayList<>();
+        List<E> res = new ArrayList<>();
         for (Human parent : human.getParents()) {
             for (Human child : parent.getChildren()) {
                 if (!child.equals(human)) {
@@ -51,7 +51,7 @@ public class FamilyTree implements Serializable, Irerable<Human>{
         }
         return res;
     }
-    public List<Human> getByName(String name){
+    public List<E> getByName(String name){
         List<Human> res = new ArrayList<>();
         for (Human human : humanList) {
             if (human.getName().equals(name)) {
@@ -63,7 +63,7 @@ public class FamilyTree implements Serializable, Irerable<Human>{
     // private boolean checkId(long id){
     //     return id < humanId && id >= 0;
     // }
-    public Human getById(long id){
+    public E getById(long id){
         for (Human human : humanList) {
             if (human.getId() == id) {
                 return human;
@@ -88,7 +88,7 @@ public class FamilyTree implements Serializable, Irerable<Human>{
         return sb.toString();
     }
     @Override
-    public Iterator<Human> iterator(){
+    public Iterator<E> iterator(){
         return new HumanInerator(humanList);
     }
     public void sortByName(){
