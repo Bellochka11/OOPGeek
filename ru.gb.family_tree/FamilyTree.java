@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FamilyTree<E extends TreeNode<E>> implements Serializable, Irerable<E>{
+import javax.swing.tree.TreeNode;
+
+public class FamilyTree<E extends TreeNode<E>> implements Serializable, Iterable<E>{
     private long countPeople;
     private List<E> humanList;
 
